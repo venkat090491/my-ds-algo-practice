@@ -16,7 +16,7 @@ public class TestSearchingAlgorithms {
         //System.out.println(tsa.linearSearchRecursive(arr, 10, 0));
         //System.out.println(tsa.linearSearchRecursive(arr, 15, 0));
         //System.out.println(tsa.linearSearchRecursive(arr, 0, 0));
-        System.out.println(tsa.jumpSearchRecursive(arr, 15, 0, arr.length));
+        System.out.println(tsa.jumpSearchRecursive(arr, 9, 0, arr.length));
         //System.out.println(tsa.jumpSearch(arr, 9, 3));
         //System.out.println(tsa.jumpSearch(arr, 9, 3));
 
@@ -38,11 +38,11 @@ public class TestSearchingAlgorithms {
     public boolean jumpSearchRecursive(int[] arr, int x , int low, int high) {
         int length = arr.length;
         int step = low + (int)Math.sqrt(length);
-        if(step > length) {
+        if(step >= length) {
             return false;
         }
         if(arr[step] < x)
-            return jumpSearchRecursive(arr, x, step, step+low);
+            return jumpSearchRecursive(arr, x, step, step+(int)Math.sqrt(length));
         else
             return linearSearchBetweenElements(arr, x, low, step);
     }
