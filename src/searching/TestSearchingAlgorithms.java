@@ -3,7 +3,7 @@ package searching;
 public class TestSearchingAlgorithms {
 
     public static void main(String[] args) {
-        int[] arr = {10,2,3,4,5,6,7,8,9};
+        int[] arr = {1,2,3,4,5,6,7,8,9};
         TestSearchingAlgorithms tsa = new TestSearchingAlgorithms();
         //System.out.println(tsa.linearSearch(arr,5));
         //System.out.println(tsa.linearSearch(arr,15));
@@ -13,9 +13,46 @@ public class TestSearchingAlgorithms {
         System.out.println(tsa.binarySearchRecursive(arr, 5, 0, length));
         System.out.println(tsa.binarySearchRecursive(arr, 15, 0, length));
         System.out.println(tsa.binarySearchRecursive(arr, 0, 0, length));*/
-        System.out.println(tsa.linearSearchRecursive(arr, 10, 0));
-        System.out.println(tsa.linearSearchRecursive(arr, 15, 0));
-        System.out.println(tsa.linearSearchRecursive(arr, 0, 0));
+        //System.out.println(tsa.linearSearchRecursive(arr, 10, 0));
+        //System.out.println(tsa.linearSearchRecursive(arr, 15, 0));
+        //System.out.println(tsa.linearSearchRecursive(arr, 0, 0));
+        System.out.println(tsa.jumpSearchRecursive(arr, 15, 0, arr.length));
+        //System.out.println(tsa.jumpSearch(arr, 9, 3));
+        //System.out.println(tsa.jumpSearch(arr, 9, 3));
+
+    }
+
+    public boolean jumpSearch(int[] arr, int x ){
+        int prev = 0, length = arr.length;
+        int step = (int)Math.sqrt(arr.length);
+        while( step <= length) {
+            if(arr[step] < x) {
+                prev = step;
+                step = step + prev - 1;
+            } else
+                return linearSearchBetweenElements(arr, x, prev,step);
+        }
+        return false;
+    }
+
+    public boolean jumpSearchRecursive(int[] arr, int x , int low, int high) {
+        int length = arr.length;
+        int step = low + (int)Math.sqrt(length);
+        if(step > length) {
+            return false;
+        }
+        if(arr[step] < x)
+            return jumpSearchRecursive(arr, x, step, step+low);
+        else
+            return linearSearchBetweenElements(arr, x, low, step);
+    }
+
+    private boolean linearSearchBetweenElements(int[] arr, int x, int low, int high) {
+        for(int i=low;i<high;i++) {
+            if (arr[i] == x)
+                return true;
+        }
+        return false;
     }
 
     public boolean linearSearchIterative(int[] arr, int x) {
