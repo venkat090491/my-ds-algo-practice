@@ -16,12 +16,33 @@ public class TestSearchingAlgorithms {
         //System.out.println(tsa.linearSearchRecursive(arr, 10, 0));
         //System.out.println(tsa.linearSearchRecursive(arr, 15, 0));
         //System.out.println(tsa.linearSearchRecursive(arr, 0, 0));
-        System.out.println(tsa.jumpSearchRecursive(arr, 9 ,0, arr.length));
+        //System.out.println(tsa.jumpSearchRecursive(arr, 9 ,0, arr.length));
         //System.out.println(tsa.jumpSearch(arr, 9, 3));
         //System.out.println(tsa.jumpSearch(arr, 9, 3));
+        //System.out.println(tsa.interpolationSearchIterative(arr, 5));
+        //System.out.println(tsa.interpolationSearchIterative(arr, 1));
+        //System.out.println(tsa.interpolationSearchIterative(arr, 9));
+        System.out.println(tsa.interpolationSearchIterative(arr, 15));
 
     }
 
+    public boolean interpolationSearchIterative(int[] arr, int x) {
+        int low = 0, high = arr.length-1;
+        while((low <= high) && x>=arr[low] && x <= arr[high]) {
+            int probe = low + (((high-low) /
+                    (arr[high]-arr[low]))*(x - arr[low])); ;
+            if(arr[probe] == x)
+                return true;
+            else if(x > arr[probe])
+                low = probe + 1;
+            else
+                high = probe;
+
+        }
+        return false;
+    }
+
+    //TODO - for now this has been failing for few cases need to refine in future
     public boolean jumpSearch(int[] arr, int x ){
         int prev = 0, length = arr.length;
         int step = (int)Math.sqrt(arr.length);
